@@ -1,0 +1,108 @@
+package Engage;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class traffic_lane {
+	
+	static class Pair implements Comparable<Pair> 
+	{
+	int ind , data ; 
+     
+	Pair(  int a , int b ) 
+
+	{ 
+
+	ind = a ; data = b ; 
+
+	} 
+
+	public int compareTo(Pair o) { 
+
+		return this.data - o.data ; 
+
+	} 
+
+	 
+
+	} 
+
+	public static void main(String[] args) throws FileNotFoundException {
+		File file = new File("/Users/91812/OneDrive/Desktop/Traffic_Lane_Input.txt");
+		Scanner sc = new Scanner(file);
+		int lane = Integer.parseInt(sc.nextLine());
+		
+		ArrayList<Integer> ans_al = new ArrayList<>();
+		int count = 1;
+		 Pair ans[] = new Pair[lane];
+		
+		while(sc.hasNext()) {
+			
+			
+			 String str = sc.nextLine();
+			
+			 str = str.substring(1 , str.length() -1);
+			
+	
+			 String[] temp = str.split(",");
+			 int num[] = new int[temp.length];
+			
+			 for(int i=0;i<temp.length;i++) {
+				 num[i] = Integer.parseInt(temp[i]); 
+			 }
+		
+		 int sum = sum(num);
+		 Pair p = new Pair(count , sum);
+		 
+		 ans[count - 1] = p;	
+		 
+		count++;		
+		
+		}
+		
+		Arrays.sort(ans);
+		
+		for(Pair p:ans) {
+			ans_al.add(p.ind);
+			ans_al.add(p.data);
+		}
+		
+		System.out.println(ans_al);
+		
+
+	}
+	
+	private static int sum(int[] arr) { 
+
+		
+
+		int n = arr.length ; 
+
+		Arrays.sort(arr); 
+
+		int ans = arr[0]; 
+
+		for( int i = 1 ; i < n ; i++) 
+
+		{ 
+
+		if( arr[i]  != arr[i-1]) 
+
+		{ 
+
+		ans += arr[i]; 
+
+		} 
+
+		} 
+
+		return ans ; 
+
+		 
+
+		} 
+
+}

@@ -1,0 +1,88 @@
+package Engage;
+import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+public class paytm_stock {
+	
+	
+
+	public static void main(String[] args) throws FileNotFoundException {
+		
+		File file = new File("/Users/91812/OneDrive/Desktop/input1.txt");
+		Scanner sc= new Scanner(file);
+		
+	
+		 String str1 = sc.nextLine();
+    		while(sc.hasNext()) {
+		
+			
+			 String str = sc.nextLine();
+			
+			 str = str.substring(1 , str.length() -1);
+			
+	
+			 String[] temp = str.split(",");
+			 int num[] = new int[temp.length];
+			 
+			 for(int i=0;i<temp.length;i++) {
+				 num[i] = Integer.parseInt(temp[i]); 
+			 }
+			  
+	        int [] profit_time = max_profit(num);
+			
+	        int a = 9;
+			int b = 30;			
+			int time = profit_time[1]*10;
+			int hr = time/60;
+			int min = time%60;
+			
+			a += hr;
+			b += min;
+			
+			while(b>=60) {
+				b = b - 60;
+				a++;
+			}
+			
+			if(a > 12) {
+				a -= 12;
+			}
+			if( b == 0 )
+			{
+				System.out.println("[" + profit_time[0] + " , " + a + "." + b + "0]" );
+			}
+			else
+			{
+				System.out.println("[" + profit_time[0] + " , " + a + "." + b +"]" );
+
+			}
+
+
+	}
+
+}
+	
+	static int [] max_profit(int [] prices) {
+		
+		int index = 0;
+		int min_price = prices[0];
+		int max_profit= 0;
+		int ans [] = new int[2];
+		
+		for(int i=0;i<prices.length;i++) {
+			if(prices[i] < min_price) min_price = prices[i];
+			int profit = prices[i] - min_price;
+			if(profit > max_profit) {
+				max_profit = profit;
+				index = i;
+			}
+		}
+		
+		ans[0] = max_profit;
+		ans[1] = index;
+		
+		return ans;
+		
+	}
+}

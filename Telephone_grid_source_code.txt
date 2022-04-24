@@ -1,0 +1,116 @@
+package Engage;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
+import java.util.HashMap;
+
+public class telephone_grid {
+
+	public static void main(String[] args) throws FileNotFoundException {
+		File file = new File("/Users/91812/OneDrive/Desktop/telephone_grid_problem.txt");
+		Scanner sc = new Scanner(file);
+		sc.nextLine();
+		while(sc.hasNext()) {
+			
+			int T = Integer.parseInt(sc.nextLine());
+			
+			HashMap<Integer , HashSet<Integer> > mapr = new HashMap<>();  
+
+			HashMap<Integer , HashSet<Integer> > mapc = new HashMap<>();  
+
+			ArrayList<ArrayList<Integer>> mat = new ArrayList<>();  
+
+			for( int i = 0 ; i < T ; i++) 
+
+			{ 
+
+			HashSet<Integer> setr = new HashSet<>(); 
+
+			HashSet<Integer> setc = new HashSet<>(); 
+
+			ArrayList<Integer> temp = new ArrayList<>(); 
+
+			temp.add(T-i); 
+
+			setr.add(T-i); 
+
+			mapr.put(i , setr); 
+
+			mapc.put(i, setc); 
+
+			mat.add( i , temp); 
+
+			} 
+
+			func( 0,mapr ,mapc , mat , T); 
+			System.out.println();
+			
+		}
+		
+
+	}
+	
+	static void func( int m , HashMap<Integer , HashSet<Integer> > mapr , 
+
+			 HashMap<Integer , HashSet<Integer> > mapc, ArrayList<ArrayList<Integer>> mat , int n ) 
+
+	{ 
+
+		if( m == n*n ) 
+		 { 
+
+			System.out.println(mat); 
+
+			return ; 
+
+		 } 
+
+			int i = m/n , j = m %n ; 			 
+
+			if( j == 0 ) { 
+
+			func(m +1,mapr, mapc , mat , n ); 
+
+			}
+			else { 
+
+			Set<Integer> setr = mapr.get(i); 
+
+			Set<Integer> setc = mapc.get(j); 
+
+			for( int k = 1 ; k<= n ; k++) 
+
+			{ 
+
+			if(!setr.contains(k) && !setc.contains(k)) 
+
+			{ 
+
+			setr.add(k); 
+
+			setc.add(k); 
+
+			mat.get(i).add(k ); 
+
+			func( m+1 , mapr , mapc , mat , n); 
+
+			setr.remove(k); 
+
+			setc.remove(k); 
+
+			mat.get(i).remove(j); 
+
+			} 
+
+			} 
+
+			} 
+
+			 
+
+			} 
+
+			 
+
+}
